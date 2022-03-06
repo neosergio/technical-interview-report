@@ -7,6 +7,10 @@ import typer
 import constants
 
 
+app = typer.Typer()
+
+
+@app.command()
 def main(input_file: str, json: bool = False):
     """
     Generate a report from a CSV file.
@@ -52,4 +56,4 @@ def main(input_file: str, json: bool = False):
 
 
 if __name__ == "__main__":
-    typer.run(main)
+    app()

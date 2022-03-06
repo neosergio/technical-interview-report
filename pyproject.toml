@@ -9,6 +9,7 @@ license = "GPL-3.0 License"
 python = "^3.10"
 typer = "^0.4.0"
 pyperclip = "^1.8.2"
+pytest = "^7.0.1"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^4.0.1"
