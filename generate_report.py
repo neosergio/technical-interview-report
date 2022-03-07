@@ -17,6 +17,7 @@ def main(input_file: str, json: bool = False):
 
     If --json is passed, the report will be in JSON format.
     """
+    # Parse the CSV file
     final_report = {}
     with open(input_file, "r") as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=",")
@@ -26,27 +27,23 @@ def main(input_file: str, json: bool = False):
             row_subtopic = row[constants.SUBTOPIC]
             row_value = row[constants.EVALUATION]
             if row_type == constants.SECTION_ROW:
-                final_report[row_topic] = {
-                    "1": [],
-                    "2": [],
-                    "3": [],
-                    "4": [],
-                    "5": [],
-                    "Comments": [],
-                }
+                final_report[row_topic] = {"1": [], "2": [], "3": [], "4": [], "5": [], "Comments": []}
             elif row_type in (constants.REPORT_ROW, constants.ADDITIONAL_REPORT_ROW):
                 if row_value:
                     if row_type == constants.REPORT_ROW:
                         if row_subtopic:
                             row_topic = row_subtopic
-                        final_report[list(final_report)[-1]][row_value[0]].append(
-                            row_topic
-                        )
+                        final_report[list(final_report)[-1]][row_value[0]].append(row_topic)
                     elif row_type == constants.ADDITIONAL_REPORT_ROW:
-                        final_report[list(final_report)[-1]]["Comments"].append(
-                            f"{row_topic}: {row_value}"
-                        )
+                        final_report[list(final_report)[-1]]["Comments"].append(f"{row_topic}: {row_value}")
 
+    # Clean up the report
+    for section in final_report.copy():
+        status = any([a for a in final_report[section].values() if a != []])
+        if status is False:
+            del final_report[section]
+
+    #  Copy the report to the clipboard and print it to the console
     printing_result = ""
     if json:
         json_result = json_lib.dumps(final_report, indent=4)
