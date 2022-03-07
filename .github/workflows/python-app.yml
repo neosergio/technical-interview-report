@@ -54,7 +54,7 @@ jobs:
       #----------------------------------------------
       - name: run on linux
         if: startsWith(matrix.os,'ubuntu')
-        run: sudo apt-get install -y xsel
+        run: sudo apt-get install -y xsel xclip
       #----------------------------------------------
       #       check-out repo and set-up python
       #----------------------------------------------
