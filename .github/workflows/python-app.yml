@@ -17,16 +17,14 @@ on:
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
-
     strategy:
       # You can use PyPy versions in python-version.
       # For example, pypy2 and pypy3
       matrix:
-        python-version: [ "3.7", "3.8", "3.9", "3.10" ]
-        poetry-version: [1.1.13]
+        python-version: [3.10]
+        os: [ubuntu-latest, macos-latest]
 
+    runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v2
     - name: Set up ${{ matrix.python-version }}
@@ -47,5 +45,4 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=30 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pip install pytest
         pytest
