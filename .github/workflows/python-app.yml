@@ -50,6 +50,12 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       #----------------------------------------------
+      #    add support specifics for linux
+      #----------------------------------------------
+      - name: run on linux
+        if: startsWith(matrix.os,'ubuntu')
+        run: sudo apt-get install -y xsel
+      #----------------------------------------------
       #       check-out repo and set-up python
       #----------------------------------------------
       - name: Check out repository
@@ -87,12 +93,6 @@ jobs:
       #----------------------------------------------
       - name: Install library
         run: poetry install --no-interaction
-      #----------------------------------------------
-      #    add support specifics for linux
-      #----------------------------------------------
-      - name: run on linux
-        if: startsWith(matrix.os,'ubuntu')
-        run: sudo apt-get install -y xclip
       #----------------------------------------------
       #    add matrix specifics and run test suite
       #----------------------------------------------
