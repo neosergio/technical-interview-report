@@ -91,7 +91,7 @@ jobs:
       #    add support specifics for linux
       #----------------------------------------------
       - name: run on linux
-        if: ${{ matrix.os }} == 'ubuntu-latest'
+        if: startsWith(matrix.os,'ubuntu')
         run: sudo apt-get install -y xclip
       #----------------------------------------------
       #    add matrix specifics and run test suite
