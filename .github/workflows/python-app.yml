@@ -45,7 +45,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [ "macos-latest" ]
+        os: [ "macos-latest", "ubuntu-latest" ]
         python-version: [ "3.10" ]
     runs-on: ${{ matrix.os }}
     steps:
@@ -87,6 +87,12 @@ jobs:
       #----------------------------------------------
       - name: Install library
         run: poetry install --no-interaction
+      #----------------------------------------------
+      #    add support specifics for linux
+      #----------------------------------------------
+      - name: run on linux
+        if: ${{ matrix.os }} == 'ubuntu-latest'
+        run: sudo apt-get install -y xclip
       #----------------------------------------------
       #    add matrix specifics and run test suite
       #----------------------------------------------
