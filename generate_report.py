@@ -26,15 +26,26 @@ def main(input_file: str, json: bool = False):
             row_subtopic = row[constants.SUBTOPIC]
             row_value = row[constants.EVALUATION]
             if row_type == constants.SECTION_ROW:
-                final_report[row_topic] = {"1": [], "2": [], "3": [], "4": [], "5": [], "Comments": []}
+                final_report[row_topic] = {
+                    "1": [],
+                    "2": [],
+                    "3": [],
+                    "4": [],
+                    "5": [],
+                    "Comments": [],
+                }
             elif row_type in (constants.REPORT_ROW, constants.ADDITIONAL_REPORT_ROW):
                 if row_value:
                     if row_type == constants.REPORT_ROW:
                         if row_subtopic:
                             row_topic = row_subtopic
-                        final_report[list(final_report)[-1]][row_value[0]].append(row_topic)
+                        final_report[list(final_report)[-1]][row_value[0]].append(
+                            row_topic
+                        )
                     elif row_type == constants.ADDITIONAL_REPORT_ROW:
-                        final_report[list(final_report)[-1]]["Comments"].append(f'{row_topic}: {row_value}')
+                        final_report[list(final_report)[-1]]["Comments"].append(
+                            f"{row_topic}: {row_value}"
+                        )
 
     printing_result = ""
     if json:
