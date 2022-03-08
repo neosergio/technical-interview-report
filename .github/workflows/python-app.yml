@@ -56,8 +56,7 @@ jobs:
         if: startsWith(matrix.os,'ubuntu')
         run: |
           sudo apt-get install -y xsel xclip
-          pip install gtk 
-          pip install PyQt4
+          pip install PyQt5
       #----------------------------------------------
       #       check-out repo and set-up python
       #----------------------------------------------
