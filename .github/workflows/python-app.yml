@@ -45,7 +45,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [ "macos-latest" ]
+        os: [ "macos-latest", "ubuntu-latest" ]
         python-version: [ "3.10" ]
     runs-on: ${{ matrix.os }}
     steps:
@@ -54,7 +54,10 @@ jobs:
       #----------------------------------------------
       - name: run on linux
         if: startsWith(matrix.os,'ubuntu')
-        run: sudo apt-get install -y xsel xclip
+        run: |
+          sudo apt-get install -y xsel xclip
+          pip install gtk 
+          pip install PyQt4
       #----------------------------------------------
       #       check-out repo and set-up python
       #----------------------------------------------
